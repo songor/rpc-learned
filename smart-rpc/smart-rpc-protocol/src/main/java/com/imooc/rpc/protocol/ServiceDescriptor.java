@@ -44,16 +44,16 @@ public class ServiceDescriptor {
             return false;
         }
         ServiceDescriptor that = (ServiceDescriptor) o;
-        return className.equals(that.className) &&
-                methodName.equals(that.methodName) &&
-                returnType.equals(that.returnType) &&
-                Arrays.equals(paramTypes, that.paramTypes);
+        return this.className.equals(that.className) &&
+                this.methodName.equals(that.methodName) &&
+                this.returnType.equals(that.returnType) &&
+                Arrays.equals(this.paramTypes, that.paramTypes);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(className, methodName, returnType);
-        result = 31 * result + Arrays.hashCode(paramTypes);
+        int result = Objects.hash(this.className, this.methodName, this.returnType);
+        result = 31 * result + Arrays.hashCode(this.paramTypes);
         return result;
     }
 

@@ -34,7 +34,7 @@ public class RemoteInvocationHandler implements InvocationHandler {
     }
 
     @Override
-    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+    public Object invoke(Object proxy, Method method, Object[] args) {
         Request request = new Request();
         request.setService(ServiceDescriptor.from(this.clazz, method));
         request.setParams(args);
@@ -50,10 +50,10 @@ public class RemoteInvocationHandler implements InvocationHandler {
         TransportClient client = null;
         try {
             client = this.selector.select();
-            byte[] outBytes = encoder.encode(request);
+            byte[] outBytes = this.encoder.encode(request);
             InputStream in = client.write(new ByteArrayInputStream(outBytes));
             byte[] inBytes = IOUtils.readFully(in, in.available());
-            response = decoder.decode(inBytes, Response.class);
+            response = this.decoder.decode(inBytes, Response.class);
         } catch (IOException e) {
             log.error(e.getMessage(), e);
             response = new Response();
@@ -61,7 +61,7 @@ public class RemoteInvocationHandler implements InvocationHandler {
             response.setMessage("Rpc client invoke fail, " + e.getMessage());
         } finally {
             if (client != null) {
-                selector.release(client);
+                this.selector.release(client);
             }
         }
         return response;

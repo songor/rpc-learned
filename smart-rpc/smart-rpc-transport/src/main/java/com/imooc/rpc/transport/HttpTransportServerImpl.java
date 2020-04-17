@@ -5,7 +5,6 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,14 +26,14 @@ public class HttpTransportServerImpl implements TransportServer {
         ServletContextHandler ctx = new ServletContextHandler();
         ServletHolder holder = new ServletHolder(new RequestServlet());
         ctx.addServlet(holder, "/*");
-        server.setHandler(ctx);
+        this.server.setHandler(ctx);
     }
 
     @Override
     public void start() {
         try {
-            server.start();
-            server.join();
+            this.server.start();
+            this.server.join();
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
@@ -43,7 +42,7 @@ public class HttpTransportServerImpl implements TransportServer {
     @Override
     public void stop() {
         try {
-            server.stop();
+            this.server.stop();
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }

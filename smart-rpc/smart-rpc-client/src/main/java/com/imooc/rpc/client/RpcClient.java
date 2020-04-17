@@ -30,7 +30,7 @@ public class RpcClient {
 
     public <T> T getProxy(Class<T> clazz) {
         return (T) Proxy.newProxyInstance(getClass().getClassLoader(), new Class[]{clazz},
-                new RemoteInvocationHandler(clazz, encoder, decoder, selector));
+                new RemoteInvocationHandler(clazz, this.encoder, this.decoder, this.selector));
     }
 
 }

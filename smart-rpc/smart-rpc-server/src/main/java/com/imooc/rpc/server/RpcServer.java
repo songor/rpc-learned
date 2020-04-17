@@ -34,7 +34,7 @@ public class RpcServer {
     public RpcServer(RpcServerConfig config) {
         this.config = config;
         this.transportServer = ReflectionUtil.newInstance(config.getTransportClass());
-        this.transportServer.init(config.getPort(), handler);
+        this.transportServer.init(config.getPort(), this.handler);
         this.encoder = ReflectionUtil.newInstance(config.getEncoderClass());
         this.decoder = ReflectionUtil.newInstance(config.getDecoderClass());
         this.manager = new ServiceManager();

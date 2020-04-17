@@ -34,14 +34,14 @@ public class ServiceManager {
         Arrays.stream(methods).forEach(method -> {
             ServiceDescriptor descriptor = ServiceDescriptor.from(interfaceClass, method);
             ServiceInstance instance = new ServiceInstance(bean, method);
-            services.put(descriptor, instance);
+            this.services.put(descriptor, instance);
             log.info("register service: {} {}", descriptor.getClassName(), descriptor.getMethodName());
         });
     }
 
     public ServiceInstance lookup(Request request) {
         ServiceDescriptor descriptor = request.getService();
-        return services.get(descriptor);
+        return this.services.get(descriptor);
     }
 
 }

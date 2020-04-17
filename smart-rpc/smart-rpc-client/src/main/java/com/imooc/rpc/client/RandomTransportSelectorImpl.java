@@ -24,26 +24,26 @@ public class RandomTransportSelectorImpl implements TransportSelector {
         int size = Math.max(count, 1);
         peers.stream().forEach(peer -> IntStream.range(0, size)
                 .forEach(i -> {
-                    availableClients.add(ReflectionUtil.newInstance(clazz).connect(peer));
+                    this.availableClients.add(ReflectionUtil.newInstance(clazz).connect(peer));
                     log.info("Connect server: {}", peer);
                 }));
     }
 
     @Override
     public synchronized TransportClient select() {
-        int i = ThreadLocalRandom.current().nextInt(availableClients.size());
-        return availableClients.remove(i);
+        int i = ThreadLocalRandom.current().nextInt(this.availableClients.size());
+        return this.availableClients.remove(i);
     }
 
     @Override
     public synchronized void release(TransportClient client) {
-        availableClients.add(client);
+        this.availableClients.add(client);
     }
 
     @Override
     public synchronized void close() {
-        availableClients.stream().forEach(TransportClient::close);
-        availableClients.clear();
+        this.availableClients.stream().forEach(TransportClient::close);
+        this.availableClients.clear();
     }
 
 }
