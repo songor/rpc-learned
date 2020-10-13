@@ -23,7 +23,7 @@
         <commons-io.version>2.6</commons-io.version>
         <jetty-servlet.version>9.4.10.v20180503</jetty-servlet.version>
         <fastjson.version>1.2.56</fastjson.version>
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.1</junit.version>
         <lombok.version>1.18.10</lombok.version>
         <slf4j-api.version>1.7.29</slf4j-api.version>
         <logback-classic.version>1.2.3</logback-classic.version>
